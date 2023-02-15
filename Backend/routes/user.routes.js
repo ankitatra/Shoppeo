@@ -1,55 +1,75 @@
-const express=require("express")
-const {UserModel}=require("../models/user.model")
-const jwt=require("jsonwebtoken")
+const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken")
+const CryptoJS=require("crypto-js")
+const route=require("express").Router()
+const User=require("../models/user.model")
 
-const bcrypt=require("bcrypt")
-const userRouter=express.Router()
 
-userRouter.post("/register",async(req,res)=>{
-    const {email,pass,name,age}=req.body
+//UPDATE
+route.put("/:id",verifyTokenAndAuthorization,async(req,res)=>{
+    if(req.body.password){
+        req.body.password=CryptoJS.AES.encrypt(req.body.password,process.env.Secret_key).toString()
+    }
+  try {
+    const updateUser=await User.findByIdAndUpdate(req.params.id,{
+        $set:req.body
+    },{new:true})
+    res.status(200).json(updateUser)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
+
+//DELETE
+route.delete("/:id",verifyTokenAndAuthorization,async(req,res)=>{
     try {
-        bcrypt.hash(pass,5,async(err,hash)=>{
-            if(err){
-                console.log(err)
-            }else{
-                const user=new UserModel({email,pass:hash,name,age})
-                await user.save()
-                res.send("Resister")
-            }
-        })
-       
+        await User.findByIdAndDelete(req.params.id)
+        res.status(200).json("user hs been deleted....")
     } catch (error) {
-        res.send("Error the registering user")
-        console.log(error)
+        res.status(500).json(error)
     }
-   
 })
 
-userRouter.post("/login",async(req,res)=>{
-   const {email,pass}=req.body
-   try {
-    const user=await UserModel.find({email:email})
-
-    console.log(user)
-    if(user.length>0){
-        bcrypt.compare(pass,user[0].pass,(err,result)=>{
-            if(result){
-                const token=jwt.sign({userID:user[0]._id},"masai")
-                res.send({"msg":"Login successful","token":token})
-            }else{
-                res.send("Wrong Credential")
-            }
-        })
-      
-    }else{
-        res.send("Wrong Credential")
+//GET USER
+route.get("/find/:id",verifyTokenAndAdmin,async(req,res)=>{
+    try {
+       const user= await User.findById(req.params.id)
+       const{password,...others}=user._doc
+        res.status(200).json(others)
+    } catch (error) {
+        res.status(500).json(error)
     }
-   
-   } catch (error) {
-    res.send("Something went wrong")
-    console.log(err)
-   }
-   
 })
 
-module.exports=({userRouter})
+//GET  All USER
+route.get("/",verifyTokenAndAdmin,async(req,res)=>{
+    const query=req.query.new
+    try {
+       const user=query?await User.find().sort({_id:-1}).limit(2): await User.find()
+    //    const{password,...others}=user._doc
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+//Get User Stat
+route.get("/stats",verifyTokenAndAdmin,async(req,res)=>{
+    const date=new Date();
+    const lastYear=new Date(date.setFullYear(date.getFullYear() -1))
+    
+    try {
+        const data=await User.aggregate([
+            {$match:{createdAt:{$gte:lastYear}}},
+            {$project:{
+                month:{$month:"$createdAt"}
+            }},{$group:{
+                _id:"$month",
+                total:{$sum:1},
+            }}
+        ])
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+module.exports=route
