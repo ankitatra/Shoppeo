@@ -11,6 +11,8 @@ import Product from './Product'
 
 
 import Cart from './Cart'
+import Login from './Login'
+import Register from './Register_Page'
 const Home = () => {
   return (
     <div>
@@ -24,7 +26,7 @@ const Home = () => {
       {/* <ProductList/> */}
       {/* <Product/> */}
       {/* <Register/> */}
-      
+      <Login/>
       {/* <Cart/> */}
     </div> 
   )
