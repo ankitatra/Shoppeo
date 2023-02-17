@@ -6,16 +6,18 @@ import Categories from "../Components/Categories"
 import Products from '../Components/Products'
 import Newsletter from '../Components/Newsletter'
 import Footer from '../Components/footer'
+import ProductList from './ProductList'
 const Home = () => {
   return (
     <div>
-      <Announcement/>
+      {/* <Announcement/>
       <Nnavbar/>
       <Slider/>
       <Categories/>
       <Products/>
       <Newsletter/>
-      <Footer/>
+      <Footer/> */}
+      <ProductList/>
     </div>
   )
 }
