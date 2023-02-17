@@ -53,7 +53,7 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
-
+//add register
 const Register = () => {
   return (
     <Container>
