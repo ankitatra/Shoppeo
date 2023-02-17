@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Announcement from "../Components/Announcement";
 import Footer from "../Components/footer";
 import Home_Navbar from "../Components/Home_Navbar";
-;
+
 import { mobile } from "../responsive";
 
 const Container = styled.div``;
