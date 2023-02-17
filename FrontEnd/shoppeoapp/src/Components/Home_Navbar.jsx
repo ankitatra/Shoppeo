@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-import { Badge } from "@material-ui/core";
+
 import { BiCart, BiSearch } from 'react-icons/bi';
 
 
@@ -79,10 +79,10 @@ const Home_Navbar = () => {
         <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
         <MenuItem>
-        <Badge badgeContent={4} color="primary">
+        {/* <Badge badgeContent={4} color="primary"> */}
            
               <BiCart/>
-            </Badge>
+            {/* </Badge> */}
         </MenuItem>
         </Right>
       </Wrapper>
