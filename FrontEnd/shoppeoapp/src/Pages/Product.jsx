@@ -1,11 +1,11 @@
-import { Add, Remove } from "@material-ui/icons";
 import {GrFormAdd} from "react-icons/gr"
 import {MdRemove} from "react-icons/md"
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
+import Announcement from "../Components/Announcement";
+import Footer from "../Components/footer";
+import Home_Navbar from "../Components/Home_Navbar";
+import Newsletter from "../Components/Newsletter";
+
 import { mobile } from "../responsive";
 
 const Container = styled.div``;
@@ -119,7 +119,7 @@ const Button = styled.button`
 const Product = () => {
   return (
     <Container>
-      <Navbar />
+      <Home_Navbar/>
       <Announcement />
       <Wrapper>
         <ImgContainer>
@@ -163,7 +163,7 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Newsletter />
+      <Newsletter/>
       <Footer />
     </Container>
   );
