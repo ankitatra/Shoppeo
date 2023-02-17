@@ -47,7 +47,7 @@ const Slide = styled.div`
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
-  border:4px solid red
+  
 `;
 
 const ImgContainer = styled.div`
@@ -80,6 +80,7 @@ const Button = styled.button`
   font-size: 20px;
   background-color: transparent;
   cursor: pointer;
+  border:1px solid black
 `;
 
 const Slider = () => {
