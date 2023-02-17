@@ -8,8 +8,8 @@ import Newsletter from '../Components/Newsletter'
 import Footer from '../Components/footer'
 import ProductList from './ProductList'
 import Product from './Product'
-import Register from './Register'
-import Login from './Login'
+
+import Login from './Login_Page'
 import Cart from './Cart'
 const Home = () => {
   return (
