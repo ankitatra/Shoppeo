@@ -9,7 +9,7 @@ import Footer from '../Components/footer'
 import ProductList from './ProductList'
 import Product from './Product'
 
-import Login from './Login_Page'
+
 import Cart from './Cart'
 const Home = () => {
   return (
@@ -24,7 +24,7 @@ const Home = () => {
       {/* <ProductList/> */}
       {/* <Product/> */}
       {/* <Register/> */}
-      <Login/>
+      
       {/* <Cart/> */}
     </div> 
   )
