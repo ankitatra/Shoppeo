@@ -14,6 +14,7 @@ import Cart from './Cart'
 import Login from './Login'
 import Register from './Register_Page'
 const Home = () => {
+  //let ankita=anki
   return (
     <div>
       {/* <Announcement/>
