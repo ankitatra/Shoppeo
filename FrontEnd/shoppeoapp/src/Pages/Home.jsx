@@ -18,18 +18,18 @@ const Home = () => {
   //let ankita=ankita
   return (
     <div>
-      {/* <Announcement/>
-      <Home_  Navbar/>
+      <Announcement/>
+      <Home_Navbar/>
       <Slider/>
       <Categories/>
       <Products/>
       <Newsletter/>
-      <Footer/> */}
+      <Footer/>
       {/* <ProductList/> */}
       {/* <Product/> */}
       {/* <Register/> */}
       {/* <Login/> */}
-      <Cart/>
+      {/* <Cart/> */}
     </div> 
   )
 }

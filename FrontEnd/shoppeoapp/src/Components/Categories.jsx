@@ -9,6 +9,7 @@ border:1px solid green;
  display:flex;
  padding:20;
  justify-content:space-between
+ ${mobile({ padding: "0px", flexDirection:"column" })}
 `;
 const Categories = () => {
   return (
