@@ -10,8 +10,8 @@ const Container = styled.div`
     flex-wrap:wrap;
     justify-content: space-between;
 `;
-const Products = ({cat,filter,sort}) => {
-  // console.log(cat,filter,sort)
+const Products = ({cat,filters,sort}) => {
+  console.log(cat,filters,sort)
  
   const [product,setProduct] =useState([])
   const [filterproduct,setFilterProduct] =useState([])
@@ -19,19 +19,60 @@ const Products = ({cat,filter,sort}) => {
   useEffect(()=>{
    const getProduct=async()=>{
     try {
-      const res=await axios.get(`http://localhost:5000/api/product/`)
-      console.log(res)
+      const res=await axios.get(cat?
+        `http://localhost:5000/api/product/?subtitle=${cat}`
+      :"http://localhost:5000/api/product/")
+      setProduct(res.data)
     } catch (error) {
       console.log(error)
     }
    }
    getProduct()
   },[cat])
+
+  useEffect(()=>{
+     cat && setFilterProduct((
+      product.filter(item=>
+        Object.entries(filters).every(([key,value])=>
+        item[key].includes(value))
+      )
+     ))
+  },[product,cat,filters])
+
+
+
+
+// useEffect(()=>{
+//     if(sort==="newest"){
+//       setFilterProduct(prev=>{
+//         [...prev].sort((a,b)=>a.createdAt-b.createdAt)
+//       })
+     
+//       // console.log(filterproduct)
+//       // console.log(sort)
+//     }
+//     else if(sort==="asc"){
+//       setFilterProduct(prev=>{
+//         [...prev].sort((a,b)=>a.price-b.price)
+//       })
+//       console.log(sort)
+//     }else if(sort==="desc"){
+//       setFilterProduct(prev=>{
+//         [...prev].sort((a,b)=>b.price-a.price)
+//       })
+//       console.log(sort)
+//     }
+// },[])
   return (
     <Container>
-      {popularProducts.map((item) => (
+      {cat?
+      filterproduct.map((item) => (
        <Single_Product item={item} key={item.id} />
-      ))}
+      )) : 
+      product.slice(0,8).map((item) => (
+        <Single_Product item={item} key={item.id} />
+       ))
+      }
     </Container>
   )
 }

@@ -1,5 +1,8 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {GrFormAdd} from "react-icons/gr"
 import {MdRemove} from "react-icons/md"
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Announcement from "../Components/Announcement";
 import Footer from "../Components/footer";
@@ -117,6 +120,22 @@ const Button = styled.button`
 `;
 
 const Product = () => {
+
+  const location=useLocation();
+  const id=location.pathname.split("/")[2]
+
+  const[product,setproduct]=useState({})
+
+  useEffect(()=>{
+    const getproduct=async()=>{
+      try {
+        const res=axios
+      } catch (error) {
+        
+      }
+    }
+  },[id])
+
   return (
     <Container>
       <Home_Navbar/>

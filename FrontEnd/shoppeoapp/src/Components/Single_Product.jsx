@@ -2,6 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AiOutlineShoppingCart,AiOutlineSearch,AiOutlineHeart} from 'react-icons/ai'
+import { Link } from 'react-router-dom';
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -63,13 +64,17 @@ const Single_Product = ({item}) => {
   return (
     <Container>
       <Circle/>
-      <Image src={item.img} />
+      <Image src={item.img[1]} />
       <Info>
         <Icon>
          <AiOutlineShoppingCart/>
         </Icon>
         <Icon>
+          <Link to={`/product/${item._id}`}>
+          {/* <Link to={"/"}> */}
           <AiOutlineSearch/>
+          </Link>
+          
         </Icon>
         <Icon>
           <AiOutlineHeart />
