@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import {GrFormAdd} from "react-icons/gr"
 import {MdRemove} from "react-icons/md"
@@ -8,7 +8,9 @@ import Announcement from "../Components/Announcement";
 import Footer from "../Components/footer";
 import Home_Navbar from "../Components/Home_Navbar";
 import Newsletter from "../Components/Newsletter";
-
+import { addProduct } from "../redux/cartRedux";
+import { pulblicRequest } from "../requestMethod";
+import { useDispatch } from "react-redux";
 import { mobile } from "../responsive";
 
 const Container = styled.div``;
@@ -20,7 +22,11 @@ const Wrapper = styled.div`
 `;
 
 const ImgContainer = styled.div`
-  flex: 1;
+  flex:1;
+  display:grid;
+  column-gap:50px;
+  row-gap:50px;
+
 `;
 
 const Image = styled.img`
@@ -123,62 +129,96 @@ const Product = () => {
 
   const location=useLocation();
   const id=location.pathname.split("/")[2]
-
+   console.log(id)
   const[product,setproduct]=useState({})
-
+  const[quantity,setquantity]=useState(1)
+  const[color,setcolor]=useState("")
+  const[size,setsize]=useState("")
+ const dispatch=useDispatch()
   useEffect(()=>{
     const getproduct=async()=>{
       try {
-        const res=axios
+        const res= await pulblicRequest.get("/product/find/"+id)
+        setproduct(res.data)
+        
+        // console.log(res.data.img[1])
       } catch (error) {
         
       }
     }
+    getproduct()
   },[id])
 
+  console.log(product.img)
+  console.log("color",color)
+  // product.img.map(im=>{
+  //   console.log(im)
+  // })
+
+  const handleQuantity=(i)=>{
+    if(i==="dec"){
+     quantity>1 && setquantity(prev=>prev-1)
+    }
+    if(i==="inc"){
+      setquantity(prev=>prev+1)
+    }
+  }
+
+
+  const handleclick=()=>{
+    // console.log("hii")
+    dispatch(
+    addProduct({...product,quantity,color,size})
+    )
+  }
   return (
     <Container>
       <Home_Navbar/>
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+        {product.img?.map((im,i)=>(
+          
+            <Image key={i} src={im} />
+         
+          
+        ))}
+         
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
+          <Title>{product.title} {product.category}</Title>
           <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
+           {product.desc}
           </Desc>
-          <Price>$ 20</Price>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
+              <FilterColor color={product.color} onClick={()=>setcolor(product.color)} />
+              {/* <FilterColor color="darkblue" />
+              <FilterColor color="gray" /> */}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
+              <FilterSize onChange={(e)=>setsize(e.target.value)}>
+                {product.size?.map((si)=>(
+                  <FilterSizeOption key={si}>{si}</FilterSizeOption>
+                ))}
+               
+                {/* <FilterSizeOption>S</FilterSizeOption>
                 <FilterSizeOption>M</FilterSizeOption>
                 <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+                <FilterSizeOption>XL</FilterSizeOption> */}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <MdRemove/>
-              <Amount>1</Amount>
-              <GrFormAdd/>
+              <MdRemove onClick={()=>handleQuantity("dec")}/>
+              <Amount>{quantity}</Amount>
+              <GrFormAdd onClick={()=>handleQuantity("inc")}/>
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleclick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

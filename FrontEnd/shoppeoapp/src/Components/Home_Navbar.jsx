@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import {BiSearch,BiCart } from "react-icons/bi"
 import { Badge } from '@chakra-ui/react'
+import {useSelector} from "react-redux"
+import { Link } from 'react-router-dom';
 const Container = styled.div`
   height: 60px;
   ${mobile({ height: "50px" })}
@@ -61,6 +63,8 @@ const MenuItem = styled.div`
 `;
 
 const Home_Navbar = () => {
+  const quantity=useSelector(state=>state.cart.quantity)
+  console.log(quantity)
   return (
     <Container>
       <Wrapper>
@@ -77,13 +81,16 @@ const Home_Navbar = () => {
         <Right>
         <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
-        <MenuItem>
+          <Link to={"/cart"}>
+          <MenuItem>
     
-        <Badge badgeContent={4} color="primary">
-           
-              <BiCart/>
-            </Badge>
-        </MenuItem>
+          <Badge color="primary">
+                <div>{quantity}</div>
+                <BiCart />
+              </Badge>
+          </MenuItem>
+          </Link>
+       
         </Right>
       </Wrapper>
       

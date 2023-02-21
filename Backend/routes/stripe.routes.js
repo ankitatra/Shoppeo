@@ -6,21 +6,21 @@ const uuid=require("uuid").v4
 const bodyparser=require("body-parser")
 route.use(bodyparser.urlencoded({extended:false}))
 route.use(bodyparser.json())
-// route.post("/payment",(req,res)=>{
-//     stripe.charges.create({
-//         source:req.body.tokenId,
-//         amount:req.body.amount,
-//         currency:"usd"
-//     },(stripeErr,stripeRes)=>{
-//         if(stripeErr){
-//             console.log(stripeErr)
-//             res.status(500).json(stripeErr)
-//         }else{
-//             // console.log(stripeRes)
-//             res.status(200).json(stripeRes)
-//         }
-//     })
-// })
+route.post("/payment",(req,res)=>{
+    stripe.charges.create({
+        source:req.body.tokenId,
+        amount:req.body.amount,
+        currency:"usd"
+    },(stripeErr,stripeRes)=>{
+        if(stripeErr){
+            console.log(stripeErr)
+            res.status(500).json(stripeErr)
+        }else{
+            // console.log(stripeRes)
+            res.status(200).json(stripeRes)
+        }
+    })
+})
 
 route.post("/",async(req,res)=>{
    console.log(req.body)
