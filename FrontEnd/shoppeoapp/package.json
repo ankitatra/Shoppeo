@@ -21,6 +21,7 @@
     "react-stripe-checkout": "^2.6.3",
     "react-toastify": "^9.1.1",
     "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.6",
     "svelte": "^3.44.0",

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { redirect } from "react-router-dom";
+
 import Home from "./Home"
 import { Pay } from "./Payment";
 import Login from "./Login";
@@ -8,8 +8,9 @@ import Register from "./Register_Page";
 import ProductList from "./ProductList";
 import Product from "./Product";
 import Cart from "./Cart";
+import {useSelector} from "react-redux"
 export const AllRoutes = () => {
-    const user = true
+    const user =useSelector(state=>state.user.currentuser)
    
     return (
       
