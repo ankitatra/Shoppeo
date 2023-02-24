@@ -11,6 +11,7 @@ import Cart from "./Cart";
 import {useSelector} from "react-redux"
 import { Admin_Dasboard } from "./Admin_page/dashboard";
 import HomeAdmin from "./Admin_page/home/home";
+import UserList from "./Admin_page/userList/userList";
 export const AllRoutes = () => {
     const user =useSelector(state=>state.user.currentuser)
    
@@ -29,7 +30,7 @@ export const AllRoutes = () => {
                 
                 
                 <Route path="/admin" element={<HomeAdmin/>}></Route>
-        
+                <Route path="/admin/userlist" element={<UserList/>}/>
             </Routes>
         </>
     )
