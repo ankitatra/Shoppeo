@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function UserList() {
+  //add userdta function
   const [data, setData] = useState(userRows);
 
   const handleDelete = (id) => {
