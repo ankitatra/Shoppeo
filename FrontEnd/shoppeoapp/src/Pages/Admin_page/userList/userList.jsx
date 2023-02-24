@@ -59,7 +59,7 @@ export default function UserList() {
       },
     },
   ];
-//add dat
+//add data of user
   return (
     <div className="userList">
       <DataGrid
