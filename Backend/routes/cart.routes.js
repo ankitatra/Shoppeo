@@ -53,7 +53,7 @@ route.get("/find/:userId",verifyTokenAndAuthorization,async(req,res)=>{
 })
 
 //GET  All 
-route.get("/",verifyTokenAndAdmin,async(req,res)=>{
+route.get("/",async(req,res)=>{
    
     try {
       const carts=await Cart.find()

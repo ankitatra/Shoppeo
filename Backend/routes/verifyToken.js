@@ -30,11 +30,14 @@ const verifyTokenAndAuthorization=(req,res,next)=>{
 
 const verifyTokenAndAdmin=(req,res,next)=>{
     verifyToken(req,res,()=>{
-        if(req.user.isAdmin){
-            res.status(403).json("You are ot allow to do that") 
-        }else{
-            
+        if(req.user.isadmin){
+
             next()
+           
+        }else{
+            console.log(req.user.isAdmin)
+            res.status(403).json("You are ot allow to do that") 
+           
         }
     })
 }

@@ -26,6 +26,7 @@
     "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.6",
     "svelte": "^3.44.0",
+    "timeago.js": "^4.0.2",
     "toastify": "^2.0.1",
     "web-vitals": "^2.1.4"
   },

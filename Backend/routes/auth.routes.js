@@ -50,7 +50,7 @@ route.post("/login",async(req,res)=>{
 
         const accessToken=jwt.sign({
             id:user._id,
-            isAdmin:user.isAsmin
+            isadmin:user.isadmin
         },process.env.JWT_SECRET_KEY,{expiresIn:"3d"})
         const{password,...others}=user._doc
         res.status(200).json({...others,accessToken})

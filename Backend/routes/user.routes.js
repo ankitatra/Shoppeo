@@ -41,7 +41,7 @@ route.get("/find/:id",verifyTokenAndAdmin,async(req,res)=>{
 })
 
 //GET  All USER
-route.get("/",verifyTokenAndAdmin,async(req,res)=>{
+route.get("/",async(req,res)=>{
     const query=req.query.new
     try {
        const user=query?await User.find().sort({_id:-1}).limit(2): await User.find()
@@ -53,7 +53,7 @@ route.get("/",verifyTokenAndAdmin,async(req,res)=>{
 })
 
 //Get User Stat
-route.get("/stats",verifyTokenAndAdmin,async(req,res)=>{
+route.get("/stats",async(req,res)=>{
     const date=new Date();
     const lastYear=new Date(date.setFullYear(date.getFullYear() -1))
     
