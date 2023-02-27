@@ -5,7 +5,7 @@ const Product=require("../models/product.model")
 
 //CREATE
 
-route.post("/",verifyTokenAndAdmin,async(req,res)=>{
+route.post("/",async(req,res)=>{
     const newProduct=new Product(req.body)
     try {
         const savedproduct=await newProduct.save()

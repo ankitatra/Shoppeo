@@ -1,5 +1,6 @@
 import axios from "axios"
-const BASE_URL="http://localhost:5000/api"
+// const BASE_URL="http://localhost:5000/api"
+const BASE_URL="https://shoppeo-server.cyclic.app/api"
 // const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.accessToken;
 const TOKEN=JSON.parse(JSON.parse (localStorage.getItem("persist:root")).user).currentuser.accessToken
 // console.log(TOKEN)

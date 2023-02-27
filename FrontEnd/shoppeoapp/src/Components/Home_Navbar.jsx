@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import {BiSearch,BiCart } from "react-icons/bi"
 import { Badge } from '@chakra-ui/react'
 import {useSelector} from "react-redux"
 import { Link } from 'react-router-dom';
+import {useNavigate} from "react-router-dom"
 const Container = styled.div`
   height: 60px;
   ${mobile({ height: "50px" })}
@@ -64,23 +65,46 @@ const MenuItem = styled.div`
 
 const Home_Navbar = () => {
   const quantity=useSelector(state=>state.cart.quantity)
-  console.log(quantity)
+  const [val,setVal]=useState("")
+  const navigate=useNavigate()
+  const handlechange=(e)=>{
+   
+    setVal(e.target.value)
+    // console.log(val)
+  }
+
+  const  onSearch=()=>{
+  console.log(val)
+  navigate(`/products/${val}`)
+  }
+  // useEffect(()=>{
+  //   const timer=setTimeout(()=>{
+  //     console.log(val)
+  //     navigate(`/products/:${val}`)
+  //   },5000)
+  //   return()=>clearTimeout(timer)
+  // },[val])
+  // console.log(quantity)
   return (
     <Container>
       <Wrapper>
         <Left>
           <Language>En</Language>
           <SearchContainer>
-          <Input placeholder="Search" />
-          <BiSearch  style={{ color: "gray", fontSize: 16 }}/>
-          </SearchContainer>
+            
+            <Input placeholder="Search"  value={val} onChange={handlechange} />
+            
+          {/* <Input placeholder="Search"  value={val} onChange={handlechange} /> */}
+          <BiSearch  style={{ color: "gray", fontSize: 16 }} onClick={onSearch}/>
+          </SearchContainer >
         </Left>
         <Center>
           <Logo>Shoppeo</Logo>
         </Center>
         <Right>
-        <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <Link to={"/register"}><MenuItem>REGISTER</MenuItem></Link>
+          <Link to={"/login"}> <MenuItem>SIGN IN</MenuItem></Link>
+         
           <Link to={"/cart"}>
           <MenuItem>
     

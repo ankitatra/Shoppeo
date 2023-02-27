@@ -20,8 +20,8 @@ const Products = ({cat,filters,sort}) => {
    const getProduct=async()=>{
     try {
       const res=await axios.get(cat?
-        `http://localhost:5000/api/product/?subtitle=${cat}`
-      :"http://localhost:5000/api/product/")
+        `https://shoppeo-server.cyclic.app//api/product/?subtitle=${cat}`
+      :"https://shoppeo-server.cyclic.app//api/product")
       setProduct(res.data)
     } catch (error) {
       console.log(error)

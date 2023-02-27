@@ -15,6 +15,7 @@ import {
     addProductSuccess,
   } from "./Admin_ProductRedux";
 import { pulblicRequest, userRequest } from "../Admin_RequestMethod";
+import axios from "axios";
 export const login=async(dispatch,user)=>{
     dispatch(loginStart())
     try {
@@ -58,7 +59,8 @@ export const getProducts = async (dispatch) => {
   export const addProduct = async (product, dispatch) => {
     dispatch(addProductStart());
     try {
-      const res = await userRequest.post(`/product`, product);
+      const res = await axios.post(`http://localhost:5000/api/product/`, product);
+      console.log(res.data)
       dispatch(addProductSuccess(res.data));
     } catch (err) {
       dispatch(addProductFailure());
